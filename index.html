@@ -52,6 +52,7 @@
     
 
     <!-- Toggleable custom form -->
+
     <style>
         .whatsapp-widget {
             max-width: 480px;
@@ -80,9 +81,15 @@
 <!-- Popup Whatsapp button on right of page-->
 
     <!-- Built in form -->
+
+        
     <form id="general-support" class="wa-widget" action="6289613866111" data-chat="general-support"></form>
     <!-- End -->
 
+    <header class="chat-header" style="position:relative;">
+    <span onclick="closeWhatsAppWidget()" style="position:absolute; right:10px; top:5px; cursor:pointer; font-size:18px;">×</span>
+    <style>
+        
     <script src="dist/js/whatsapp-widget.min.js"></script>
     <script>
       function closeWhatsAppWidget() {
@@ -93,6 +100,9 @@
             name: 'Fajar Setya',
             division: 'General Supports',
             photo: 'images/user.png',
+
+
+            </header>
             introduction: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
         }, [
             {

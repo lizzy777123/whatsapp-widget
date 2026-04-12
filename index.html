@@ -13,15 +13,12 @@
 </head>
 <body>
 
-
 <!-- Large Whatsapp button filling uo the entire page-->
 
     
     <!-- Non-toggleable custom form -->
     <form id="billing-support" class="wa-widget-content" action="6289613866000" data-chat="billing-support">
-        <header class="chat-header" style="position:relative;">
-    <span onclick="closeWhatsAppWidget()" style="position:absolute; right:10px; top:5px; cursor:pointer; font-size:18px;">×</span>
-          
+        <header class="chat-header">
             <img class="chat-admin-picture" src="images/user.png">
             <div class="chat-admin-details">
                 <h4>John Doe</h4>
@@ -52,7 +49,6 @@
     
 
     <!-- Toggleable custom form -->
-
     <style>
         .whatsapp-widget {
             max-width: 480px;
@@ -81,29 +77,15 @@
 <!-- Popup Whatsapp button on right of page-->
 
     <!-- Built in form -->
-
-        
     <form id="general-support" class="wa-widget" action="6289613866111" data-chat="general-support"></form>
     <!-- End -->
 
-    <header class="chat-header" style="position:relative;">
-    <span onclick="closeWhatsAppWidget()" style="position:absolute; right:10px; top:5px; cursor:pointer; font-size:18px;">×</span>
-    </header>
-    <style>
-        
     <script src="dist/js/whatsapp-widget.min.js"></script>
     <script>
-      function closeWhatsAppWidget() {
-    document.getElementById('general-support').classList.remove('expanded');
-      }
-      
         var generalSupport = new WhatsAppWidget(document.getElementById('general-support'), {
             name: 'Fajar Setya',
             division: 'General Supports',
             photo: 'images/user.png',
-
-
-        
             introduction: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
         }, [
             {
@@ -120,7 +102,32 @@
                 required: true
             }
         ]);
-      
+
+        // ❌ REMOVED AUTO OPEN
+        // generalSupport.toggle()
+
+        // ✅ ADD CLOSE BUTTON (MINIMAL, NON-DESTRUCTIVE)
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                var widget = document.getElementById('general-support');
+                if (!widget) return;
+
+                var closeBtn = document.createElement("span");
+                closeBtn.innerHTML = "×";
+                closeBtn.style.position = "absolute";
+                closeBtn.style.top = "10px";
+                closeBtn.style.right = "12px";
+                closeBtn.style.cursor = "pointer";
+                closeBtn.style.fontSize = "18px";
+                closeBtn.style.zIndex = "9999";
+
+                closeBtn.onclick = function () {
+                    generalSupport.toggle();
+                };
+
+                widget.appendChild(closeBtn);
+            }, 500);
+        });
     </script>
 </body>
 </html>

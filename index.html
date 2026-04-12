@@ -41,14 +41,9 @@
             <button class="chat-send" type="submit" data-toggle="wa-send"><strong>Send</strong></button>
         </div>
     </form>
-    <!-- End -->
-    
 
 <!-- Toggle Whatsapp button at bottom of page in the middle-->
 
-    
-
-    <!-- Toggleable custom form -->
     <style>
         .whatsapp-widget {
             max-width: 480px;
@@ -68,17 +63,11 @@
             <button class="chat-send" type="submit" data-toggle="wa-send"><strong>Open Chat</strong></button>
         </div>
     </form>
-    <!-- End -->
 
-    
-    
-
-    
 <!-- Popup Whatsapp button on right of page-->
 
     <!-- Built in form -->
     <form id="general-support" class="wa-widget" action="6289613866111" data-chat="general-support"></form>
-    <!-- End -->
 
     <script src="dist/js/whatsapp-widget.min.js"></script>
     <script>
@@ -87,18 +76,6 @@
             division: 'General Supports',
             photo: 'images/user.png',
             introduction: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-        var closeBtn = document.createElement("span");
-                closeBtn.innerHTML = "×";
-                closeBtn.style.position = "absolute";
-                closeBtn.style.top = "10px";
-                closeBtn.style.right = "12px";
-                closeBtn.style.cursor = "pointer";
-                closeBtn.style.fontSize = "18px";
-                closeBtn.style.zIndex = "9999";
-
-                closeBtn.onclick = function () {
-                    generalSupport.toggle();
-                };
         }, [
             {
                 data: 'name',
@@ -115,29 +92,36 @@
             }
         ]);
 
-        // ❌ REMOVED AUTO OPEN
+        // ❌ removed auto open
         // generalSupport.toggle()
 
-        // ✅ ADD CLOSE BUTTON (MINIMAL, NON-DESTRUCTIVE)
+        // ✅ CLOSE BUTTON INSIDE HEADER (FIXED POSITION)
         document.addEventListener("DOMContentLoaded", function () {
             setTimeout(function () {
-                var widget = document.getElementById('general-support');
-                if (!widget) return;
+
+                var header = document.querySelector('#general-support .chat-header');
+
+                if (!header) return;
+
+                header.style.position = "relative";
 
                 var closeBtn = document.createElement("span");
                 closeBtn.innerHTML = "×";
+
                 closeBtn.style.position = "absolute";
-                closeBtn.style.top = "10px";
-                closeBtn.style.right = "12px";
+                closeBtn.style.top = "8px";
+                closeBtn.style.right = "10px";
                 closeBtn.style.cursor = "pointer";
                 closeBtn.style.fontSize = "18px";
+                closeBtn.style.fontWeight = "bold";
                 closeBtn.style.zIndex = "9999";
 
                 closeBtn.onclick = function () {
                     generalSupport.toggle();
                 };
 
-                widget.appendChild(closeBtn);
+                header.appendChild(closeBtn);
+
             }, 500);
         });
     </script>

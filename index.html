@@ -80,33 +80,66 @@
     <form id="general-support" class="wa-widget" action="6289613866111" data-chat="general-support"></form>
     <!-- End -->
 
+    <script src="dist/js/whatsapp-widget.min.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    setTimeout(function () {
-
-        // target the ACTUAL header inside the popup widget
-        var header = document.querySelector('#general-support .chat-header');
-
-        if (!header) return;
-
-        header.style.position = "relative"; // ensure positioning works
-
+        var generalSupport = new WhatsAppWidget(document.getElementById('general-support'), {
+            name: 'Fajar Setya',
+            division: 'General Supports',
+            photo: 'images/user.png',
+            introduction: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
         var closeBtn = document.createElement("span");
-        closeBtn.innerHTML = "×";
-        closeBtn.style.position = "absolute";
-        closeBtn.style.top = "8px";
-        closeBtn.style.right = "10px";
-        closeBtn.style.cursor = "pointer";
-        closeBtn.style.fontSize = "18px";
+                closeBtn.innerHTML = "×";
+                closeBtn.style.position = "absolute";
+                closeBtn.style.top = "10px";
+                closeBtn.style.right = "12px";
+                closeBtn.style.cursor = "pointer";
+                closeBtn.style.fontSize = "18px";
+                closeBtn.style.zIndex = "9999";
 
-        closeBtn.onclick = function () {
-            generalSupport.toggle();
-        };
+                closeBtn.onclick = function () {
+                    generalSupport.toggle();
+                };
+        }, [
+            {
+                data: 'name',
+                type: 'text',
+                required: true
+            }, {
+                data: 'email',
+                type: 'email',
+                required: false
+            }, {
+                data: 'message',
+                type: 'text',
+                required: true
+            }
+        ]);
 
-        header.appendChild(closeBtn);
+        // ❌ REMOVED AUTO OPEN
+        // generalSupport.toggle()
 
-    }, 500);
-});
-</script>
+        // ✅ ADD CLOSE BUTTON (MINIMAL, NON-DESTRUCTIVE)
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                var widget = document.getElementById('general-support');
+                if (!widget) return;
+
+                var closeBtn = document.createElement("span");
+                closeBtn.innerHTML = "×";
+                closeBtn.style.position = "absolute";
+                closeBtn.style.top = "10px";
+                closeBtn.style.right = "12px";
+                closeBtn.style.cursor = "pointer";
+                closeBtn.style.fontSize = "18px";
+                closeBtn.style.zIndex = "9999";
+
+                closeBtn.onclick = function () {
+                    generalSupport.toggle();
+                };
+
+                widget.appendChild(closeBtn);
+            }, 500);
+        });
+    </script>
 </body>
 </html>

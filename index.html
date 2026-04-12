@@ -1,109 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Widget - (c) Fajar Setya Budi</title>
-    <link rel="stylesheet" href="dist/css/whatsapp-widget.min.css">
-    <style>
-        body {
-            margin: 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* Floating Button */
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    border-radius: 50px;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+/* Chat Box */
+.whatsapp-box {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    max-width: 90%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: none; /* ❗ hidden by default */
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 999;
+}
+
+/* Header */
+.whatsapp-header {
+    background: #25D366;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    position: relative;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Body */
+.whatsapp-body {
+    padding: 15px;
+    font-size: 14px;
+}
+
+/* Chat Button */
+.whatsapp-start {
+    display: block;
+    background: #25D366;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+    .whatsapp-box {
+        right: 10px;
+        bottom: 70px;
+        width: 95%;
+    }
+}
+</style>
 </head>
+
 <body>
 
+<!-- Floating Button -->
+<div class="whatsapp-btn" onclick="openWidget()">
+    💬 Chat with us
+</div>
 
-<!-- Large Whatsapp button filling uo the entire page-->
-
+<!-- Chat Widget -->
+<div class="whatsapp-box" id="whatsappBox">
     
-    <!-- Non-toggleable custom form -->
-    <form id="billing-support" class="wa-widget-content" action="6289613866000" data-chat="billing-support">
-        <header class="chat-header">
-            <img class="chat-admin-picture" src="images/user.png">
-            <div class="chat-admin-details">
-                <h4>John Doe</h4>
-                <p><small>Billing Support</small></p>
-            </div>
-        </header>
-        <div class="chat-content">
-            <div class="chat-item">
-                <div>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-                    <p>Minima tenetur eaque fugit unde odit nobis, maxime cupiditate error beatae.</p>
-                    <p>Dicta provident nam doloribus porro facilis perspiciatis quisquam ratione recusandae totam.</p>
-                </div>
-            </div>
-        </div>
-        <div class="chat-form">
-            <input data-message="name" type="text" placeholder="Your name" required>
-            <input data-message="email" type="email" placeholder="E-Mail">
-            <input data-message="message" type="text" placeholder="Your message" required>
-            <button class="chat-send" type="submit" data-toggle="wa-send"><strong>Send</strong></button>
-        </div>
-    </form>
-    <!-- End -->
-    
+    <div class="whatsapp-header">
+        Chat with us
+        <span class="close-btn" onclick="closeWidget()">×</span>
+    </div>
 
-<!-- Toggle Whatsapp button at bottom of page in the middle-->
+    <div class="whatsapp-body">
+        Hi 👋<br><br>
+        Thank you for contacting us.<br>
+        How can we help you?
+    </div>
 
-    
+    <a class="whatsapp-start" 
+       href="https://wa.me/447946123123?text=Hi%20I%20need%20help" 
+       target="_blank">
+       Start Chat
+    </a>
 
-    <!-- Toggleable custom form -->
-    <style>
-        .whatsapp-widget {
-            max-width: 480px;
-            display: none;
-        }
-        .whatsapp-widget.expanded {
-            display: block;
-        }
-    </style>
+</div>
 
-    <button class="button" data-toggle="wa-chat" data-target="#another-support">Toggle</button>
-    
-    <form id="another-support" class="whatsapp-widget" action="6289613866000" data-chat="another-support">
-        <div class="wa-widget-content chat-form">
-            <input data-message="name" type="text" placeholder="Your name" required>
-            <input data-message="message" type="text" placeholder="Your message" required>
-            <button class="chat-send" type="submit" data-toggle="wa-send"><strong>Open Chat</strong></button>
-        </div>
-    </form>
-    <!-- End -->
+<script>
+function openWidget() {
+    document.getElementById("whatsappBox").style.display = "flex";
+}
 
-    
-    
+function closeWidget() {
+    document.getElementById("whatsappBox").style.display = "none";
+}
+</script>
 
-    
-<!-- Popup Whatsapp button on right of page-->
-
-    <!-- Built in form -->
-    <form id="general-support" class="wa-widget" action="6289613866111" data-chat="general-support"></form>
-    <!-- End -->
-
-    <script src="dist/js/whatsapp-widget.min.js"></script>
-    <script>
-        var generalSupport = new WhatsAppWidget(document.getElementById('general-support'), {
-            name: 'Fajar Setya',
-            division: 'General Supports',
-            photo: 'images/user.png',
-            introduction: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-        }, [
-            {
-                data: 'name',
-                type: 'text',
-                required: true
-            }, {
-                data: 'email',
-                type: 'email',
-                required: false
-            }, {
-                data: 'message',
-                type: 'text',
-                required: true
-            }
-        ]);
-        generalSupport.toggle()
-    </script>
 </body>
 </html>

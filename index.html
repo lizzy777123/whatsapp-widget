@@ -1,49 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Widget - (c) Fajar Setya Budi</title>
+    <link rel="stylesheet" href="dist/css/whatsapp-widget.min.css">
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- YOUR EXISTING BUTTON -->
-<div onclick="openWhatsapp()">
-  Chat
-</div>
 
-<!-- YOUR EXISTING WIDGET -->
-<div id="whatsapp-widget" style="display:none; position:relative;">
+<!-- Large Whatsapp button filling uo the entire page-->
 
-  <!-- ADD THIS CLOSE BUTTON ONLY -->
-  <span onclick="closeWhatsapp()" style="
-    position:absolute;
-    top:5px;
-    right:8px;
-    cursor:pointer;
-    font-size:16px;
-    font-weight:bold;
-  ">×</span>
+    
+    <!-- Non-toggleable custom form -->
+    <form id="billing-support" class="wa-widget-content" action="6289613866000" data-chat="billing-support">
+        <header class="chat-header" style="position:relative;">
+    <span onclick="closeWhatsAppWidget()" style="position:absolute; right:10px; top:5px; cursor:pointer; font-size:18px;">×</span>
+          
+            <img class="chat-admin-picture" src="images/user.png">
+            <div class="chat-admin-details">
+                <h4>John Doe</h4>
+                <p><small>Billing Support</small></p>
+            </div>
+        </header>
+        <div class="chat-content">
+            <div class="chat-item">
+                <div>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+                    <p>Minima tenetur eaque fugit unde odit nobis, maxime cupiditate error beatae.</p>
+                    <p>Dicta provident nam doloribus porro facilis perspiciatis quisquam ratione recusandae totam.</p>
+                </div>
+            </div>
+        </div>
+        <div class="chat-form">
+            <input data-message="name" type="text" placeholder="Your name" required>
+            <input data-message="email" type="email" placeholder="E-Mail">
+            <input data-message="message" type="text" placeholder="Your message" required>
+            <button class="chat-send" type="submit" data-toggle="wa-send"><strong>Send</strong></button>
+        </div>
+    </form>
+    <!-- End -->
+    
 
-  <!-- YOUR EXISTING CONTENT (UNCHANGED) -->
-  <p>Hi 👋</p>
-  <p>Thank you for contacting us. How can we help you?</p>
+<!-- Toggle Whatsapp button at bottom of page in the middle-->
 
-  <a href="https://wa.me/447946123123?text=Hi" target="_blank">
-    Start Chat
-  </a>
+    
 
-</div>
+    <!-- Toggleable custom form -->
+    <style>
+        .whatsapp-widget {
+            max-width: 480px;
+            display: none;
+        }
+        .whatsapp-widget.expanded {
+            display: block;
+        }
+    </style>
 
-<!-- JS (INLINE, SAME FILE) -->
-<script>
-function openWhatsapp() {
-  document.getElementById("whatsapp-widget").style.display = "block";
-}
+    <button class="button" data-toggle="wa-chat" data-target="#another-support">Toggle</button>
+    
+    <form id="another-support" class="whatsapp-widget" action="6289613866000" data-chat="another-support">
+        <div class="wa-widget-content chat-form">
+            <input data-message="name" type="text" placeholder="Your name" required>
+            <input data-message="message" type="text" placeholder="Your message" required>
+            <button class="chat-send" type="submit" data-toggle="wa-send"><strong>Open Chat</strong></button>
+        </div>
+    </form>
+    <!-- End -->
 
-function closeWhatsapp() {
-  document.getElementById("whatsapp-widget").style.display = "none";
-}
-</script>
+    
+    
 
+    
+<!-- Popup Whatsapp button on right of page-->
+
+    <!-- Built in form -->
+    <form id="general-support" class="wa-widget" action="6289613866111" data-chat="general-support"></form>
+    <!-- End -->
+
+    <script src="dist/js/whatsapp-widget.min.js"></script>
+    <script>
+      function closeWhatsAppWidget() {
+    document.getElementById('general-support').classList.remove('expanded');
+      }
+      
+        var generalSupport = new WhatsAppWidget(document.getElementById('general-support'), {
+            name: 'Fajar Setya',
+            division: 'General Supports',
+            photo: 'images/user.png',
+            introduction: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
+        }, [
+            {
+                data: 'name',
+                type: 'text',
+                required: true
+            }, {
+                data: 'email',
+                type: 'email',
+                required: false
+            }, {
+                data: 'message',
+                type: 'text',
+                required: true
+            }
+        ]);
+      
+    </script>
 </body>
 </html>

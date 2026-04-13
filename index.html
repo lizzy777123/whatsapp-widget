@@ -258,7 +258,25 @@ window.addEventListener('touchmove', (e) => {
 });
 </script>
 
-      
+    
+<style>
+/* FORCE WHATSAPP WIDGET TO TOP */
+#general-support,
+.wa-widget {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 2147483647 !important; /* MAX layer */
+}
 
+/* When popup opens */
+.wa-widget.active,
+.wa-widget.open {
+  z-index: 2147483647 !important;
+}
+</style>
+    
+
+    
 </body>
 </html>

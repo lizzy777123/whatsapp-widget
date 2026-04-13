@@ -76,288 +76,189 @@
     </script>
   
 
-<body class="about-page">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #f5f5f5;
+}
 
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+/* OUTER WRAPPER */
+.ba-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
 
-      <a href="index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img src="assets/img/Awera Surprises Logo.png" alt="index.html">
-        <!-- 2 Colour green and black logo <h1 class="sitename">Awera<span> Surprises</span></h1> -->
-        <h1 class="sitename">Awera Surprises</h1>
-      </a>
+/* BOTH PANES */
+.ba-before,
+.ba-after {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
 
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+.ba-before img,
+.ba-after img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    </div>
-  </header>
+/* INITIAL SPLIT */
+.ba-before {
+  width: 50%;
+}
+.ba-after {
+  width: 50%;
+}
 
-  <main class="main">
+/* HANDLE */
+.ba-handle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 100%;
+  background: #fff;
+  cursor: ew-resize;
+  z-index: 10;
+}
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
+.ba-handle::after {
+  content: "⇆";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+}
 
-      <!--<div id="hero-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
--->
-        <!-- <div class="carousel-item active">-->
- 
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; width: 100%;">
-<!-- FOR YOUTUBE VIDEOS  <iframe 
-    src=""https://www.youtube.com/embed/LPZh9BOjkQs?si=oNr0RrvDhkQ6U31U" 
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>     
-</iframe> --> 
+/* LABELS */
+.ba-label {
+  position: absolute;
+  top: 12px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0,0,0,0.6);
+  border-radius: 20px;
+  z-index: 11;
+  pointer-events: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
 
-    <!-- <img src="assets/img/GoldBanner.png" alt="index.html">   -->
-      <!-- <img src="assets/img/10Balloon.jpg" alt="index.html">   -->
-        <!-- <img src="assets/img/Gold2.png" alt="index.html">   -->
-    <img src="assets/img/Red2.jpg" alt="index.html"> 
-  </iframe>
+.ba-label.before {
+  left: 12px;
+}
+
+.ba-label.after {
+  right: 12px;
+}
+
+/* 📱 MOBILE TWEAKS */
+@media (max-width: 768px) {
+
+  body {
+    padding: 10px;
+  }
+
+  .ba-container {
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+  }
+
+  .ba-label {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
+  .ba-handle::after {
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<h2>Before & After Slider</h2>
+
+<div class="ba-container" id="slider">
+
+  <!-- BEFORE -->
+  <div class="ba-before">
+    <img src="before_20260412_162839_0000.jpg">
+  </div>
+
+  <!-- AFTER -->
+  <div class="ba-after">
+    <img src="after_20260412_162918_0000.jpg">
+  </div>
+
+  <!-- LABELS -->
+  <span class="ba-label before">Before</span>
+  <span class="ba-label after">After</span>
+
+  <!-- HANDLE -->
+  <div class="ba-handle"></div>
+
 </div>
 
+<script>
+const container = document.getElementById('slider');
+const before = container.querySelector('.ba-before');
+const after = container.querySelector('.ba-after');
+const handle = container.querySelector('.ba-handle');
 
-    </section><!-- /Hero Section -->
+let isDragging = false;
 
-    <!-- Services Section -->
-    <section id="services" class="services section">
+function moveSlider(clientX) {
+  const rect = container.getBoundingClientRect();
+  let x = clientX - rect.left;
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+  if (x < 0) x = 0;
+  if (x > rect.width) x = rect.width;
 
-        <h1><b>Welcome to Awera Surprises</b></h1>
-        <p>Awera Surprises specializes in <b>luxury money bouquets</b>, <b>faux rose bouquets</b>, and <b>custom elegant balloon gifts</b> — carefully crafted to create unforgettable, personalized surprises for life’s most special moments.</p>
-        <p>We offer <b>same-day luxury gifting</b> throughout the Dallas–Fort Worth (DFW) area.</p>
-        <p>Let us bring your vision to life — with elegance and style.</p>       
-        </br>
-        <a href="services.html" class="btn-get-started">Shop Luxury Gifts Now</a>
-        </br>
-        </br>
-      </br>
-        
-        
-        <h2>Featured Services</h2>
-       <!-- <p>Our most popular services.</p> -->
-      </div><!-- End Section Title -->
+  const percent = (x / rect.width) * 100;
 
-      <div class="container">
+  before.style.width = percent + "%";
+  after.style.width = (100 - percent) + "%";
+  handle.style.left = percent + "%";
+}
 
-        <div class="row gy-4">
+/* DESKTOP */
+handle.addEventListener('mousedown', () => isDragging = true);
+window.addEventListener('mouseup', () => isDragging = false);
+window.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  moveSlider(e.clientX);
+});
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item position-relative">
-              <!-- <div class="icon"> --> <div class="card">
-               <img src="assets/img/MoneyBouquetCustom2.png" alt="" class="img-fluid">
-                </i> 
-              </div>
-              <a href="services.html" class="stretched-link">
-                <h3>Luxury Money Bouquets</h3>
-              </a>
-              <p>Exquisite money arrangements designed to impress and delight.</p>
-             </br>
-           <p><a href="services.html" class="btn-get-started">Shop Now</a></p>
-            </div>
-          </div><!-- End Service Item -->
+/* MOBILE (IMPORTANT IMPROVEMENT) */
+container.addEventListener('touchstart', () => isDragging = true);
+window.addEventListener('touchend', () => isDragging = false);
 
-        
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item position-relative">
-              <!-- <div class="icon"> --> <div class="card">
-               <img src="assets/img/BlueRoses2.png" alt="" class="img-fluid">
-                </i> 
-              </div>
-              <a href="services.html" class="stretched-link">
-                <h3>Faux Rose Bouquets</h3>
-              </a>
-              <p>Timeless faux roses crafted for elegance that lasts.</p>
-              </br>
-           <p><a href="services.html" class="btn-get-started">Shop Now</a></p>
-            </div>
-          </div><!-- End Service Item -->
+window.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  moveSlider(e.touches[0].clientX);
+});
+</script>
 
-        
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item position-relative">
-              <!-- <div class="icon"> --> <div class="card">
-               <img src="assets/img/BlueandWhiteColumn2.png" alt="" class="img-fluid">
-                </i> 
-              </div>
-              <a href="services.html" class="stretched-link">
-                <h3>Elegant Balloon Gifts</h3>
-              </a>
-              <p>Personalized balloon creations that elevate every celebration.</p>
-               </br>
-           <p><a href="services.html" class="btn-get-started">Shop Now</a></p>
-            </div>
-          </div><!-- End Service Item -->
-        </section><!-- /Hero Section -->
-
-
-          
-
-    <!-- Services Section -->
-    <section id="services" class="services section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-
-        <h1><b>We service the following Dallas Fort Worth (DFW) Metroplex cities</b></h1>
-
-        <p>
-        Dallas, TX; Fort Worth, TX; Arlington, TX; Irving, TX; North Richland Hills, TX; Haltom City, TX; Richland Hills, TX; Hurst, TX; 
-        Saginaw, TX; Keller, TX; Denton, TX; Euless, TX; Haslet, TX; Lake Worth, TX; Lakeside, TX; Sansom Park, TX; White Settlement, TX; Watauga, TX; Edgecliff Village, TX; Roanoke, TX; 
-        Southlake, TX; Colleyville, TX; Las Colinas, TX; Farmers Branch, TX; Lewisville, TX; The Colony, TX; Bedford, TX; 
-        Allen, TX; Plano, TX; Addison, TX; Frisco, TX; Allen, TX; McKinney, TX; Grapevine, TX; Grand Prairie, TX;  Anna, TX; Carrollton, TX; Prosper, TX;
-        Burleson, TX; Crowley, TX; Everman, TX; Westlake, TX; Mansfield, TX; Midlothian, TX; Joshua, TX; 
-        Heartland, TX; Forney, TX; Seagoville, TX; Combine, TX; DeSoto, TX; Crandall, TX; Kaufman, TX; 
-        University Park, TX; Willow Park, TX; Aledo, TX; Weatherford, TX; Granbury, TX; Benbrook, TX; Westland, TX.
-        </p>
-
-        </br>
-        <a href="services.html" class="btn-get-started">Shop Luxury Gifts Now</a>
-        </br>
-        </br>
-      </br>
-
-
-        
-
-          
-          <!-- Add back in the future
-
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item  position-relative">
-              <div class="icon">
-                <i class="bi bi-activity"></i>
-              </div>
-              <a href="services.html" class="stretched-link">
-                <h3>Aerial Drone Photography</h3>
-              </a>
-              <p>Stunning aerial shots for real estate, construction, and commercial properties.</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item position-relative">
-              <div class="icon">
-                <i class="bi bi-easel"></i>
-              </div>
-              <a href="services.html" class="stretched-link">
-                <h3>Aerial Drone Videography</h3>
-              </a>
-              <p>Captivating aerial videos to showcase expansive properties or development sites.</p>
-            </div>
-          </div> 
-          -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Services Section -->
-    
-  </main>
-
-
-  
-
-  <footer id="footer" class="footer light-background">
-
-    <div class="container">
-      <div class="row gy-3">
-        <div class="col-lg-3 col-md-6 d-flex">
-
-          
-     <!-- I added-->
-      <a href="index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img src="assets/img/Awera Surprises Logo.png" alt="index.html">
-        <!--<h1 class="sitename">Awera<span> Surprises</span></h1> -->
-        <h1 class="sitename">Awera Surprises</h1>
-      </a>
-             <!-- I added-->
-          
-
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-telephone icon"></i>      <!-- INSTAGRAM ICON   <i class="bi bi-instagram"></i></a> --->
-          <div>
-            <h4>Contact</h4>
-            <p>
-             <strong>Phone:</strong> <a href="tel: +1 254 339 3137"> +1 254 339 3137</a></br>
-               <strong>Order Form:</strong> <a href="https://forms.gle/Tg9XntWrwfMNTN136"> Book Now </a></br>
-                <!-- <strong>Email:</strong> <a href="mailto:awerasurprises@gmail.com?subject=Book%20Awera%20Surprises" class=""> <span>awerasurprises@gmail.com</span></a> <br> -->
-                 <strong>Instagram:</strong> <a href="https://www.instagram.com/awerasurprises"> awerasurprises </a></br>
-                  <strong>TikTok:</strong> <a href="https://www.tiktok.com/@awerasurprises"> awerasurprises </a></br>
-                    <strong>Location:</strong> <a href="https://support.crunchbase.com/hc/en-us/articles/360010016393-What-cities-are-in-the-Dallas-Fort-Worth-region"> Servicing all Dallas Fort Worth, TX Metroplex Cities</a></br>
-             </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-clock icon"></i>
-          <div>
-            <h4>Opening Hours</h4>
-            <p>
-              <strong>Monday - Saturday:</strong> <span>10AM - 8PM</span><br>
-              <strong>Sunday</strong>: <span>Closed</span>
-            </p>
-          </div>
-        </div>
-
-        <!--      <div class="col-lg-3 col-md-6"> Block -->  
-       <!-- Block  <h4>Follow Us</h4>  Block -->  
-        <!-- Block         <div class="social-links d-flex"> Block -->  
-           <!-- Block     <a href="https://www.linkedin.com/company/awerasurprises" class="linkedin"><i class="bi bi-linkedin"></i></a>   Block -->  
-            <!--       <a href="https://www.tiktok.com/@awerasurprises" class="tiktok"><i class="bi bi-tiktok"></i></a>   Block -->  
-            <!--      <a href="https://www.instagram.com/awerasurprises" class="instagram"><i class="bi bi-instagram"></i></a>    Block -->  
-            <!--       <a href="https://www.awerasurprises.com" class="facebook"><i class="bi bi-facebook"></i></a>    Block -->  
-           <!--     </div>  Block -->  
-        </div>
-
-      </div>
-    </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script></p>
-      <div class="credits">
-        Designed for <a href="https://www.awerasurprises.com">Awera Surprises</a>
-      </div>
-    </div>
-
-  </footer>
-
-  <!-- Scroll Top -->
-  <a href="https://www.awerasurprises.com/home" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-
-
-  
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
-    
-
+      
 
 </body>
 </html>

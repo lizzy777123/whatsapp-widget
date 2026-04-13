@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Widget - (c) Fajar Setya Budi</title>
+    <link rel="stylesheet" href="dist/css/whatsapp-widget.min.css">
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+<!-- Popup Whatsapp button on right of page-->
+
+    <!-- Built in form -->
+    <form id="general-support" class="wa-widget" action="447946403628" data-chat="general-support"></form>
+
+    <script src="dist/js/whatsapp-widget.min.js"></script>
+    <script>
+        var generalSupport = new WhatsAppWidget(document.getElementById('general-support'), {
+            name: 'Fajar Setya',
+            division: 'General Supports',
+            photo: 'images/user.png',
+            introduction: 'Hi there 👋, How can I help you?',
+        }, [
+            {
+                data: 'name',
+                type: 'text',
+                required: true
+            }, {
+                data: 'email',
+                type: 'email',
+                required: true
+            }, {
+                data: 'message',
+                type: 'text',
+                required: true
+            }
+        ]);
+
+        // ❌ removed auto open
+        // generalSupport.toggle()
+
+        // ✅ CLOSE BUTTON INSIDE HEADER (FIXED POSITION)
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+
+                var header = document.querySelector('#general-support .chat-header');
+
+                if (!header) return;
+
+                header.style.position = "relative";
+
+                var closeBtn = document.createElement("span");
+                closeBtn.innerHTML = "×";
+
+                closeBtn.style.position = "absolute";
+                closeBtn.style.top = "8px";
+                closeBtn.style.right = "10px";
+                closeBtn.style.cursor = "pointer";
+                closeBtn.style.fontSize = "18px";
+                closeBtn.style.fontWeight = "bold";
+                closeBtn.style.zIndex = "9999";
+
+                closeBtn.onclick = function () {
+                    generalSupport.toggle();
+                };
+
+                header.appendChild(closeBtn);
+
+            }, 500);
+        });
+    </script>
+</body>
+</html>

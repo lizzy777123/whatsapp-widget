@@ -101,7 +101,6 @@ body {
 .ba-after {
   height: 100%;
   overflow: hidden;
-  position: relative;
 }
 
 .ba-before img,
@@ -259,7 +258,7 @@ function moveSlider(clientX) {
   const percent = (x / rect.width) * 100;
 
   before.style.width = percent + "%";
-  after.style.width = (100 - percent) + "%";
+// after.style.width = (100 - percent) + "%"; // keep for future if needed
   handle.style.left = percent + "%";
 }
 

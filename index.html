@@ -95,13 +95,6 @@ body {
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
-
-.ba-after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
     
 /* BOTH PANES */
 .ba-before,
@@ -265,7 +258,7 @@ function moveSlider(clientX) {
   const percent = (x / rect.width) * 100;
 
   before.style.width = percent + "%";
-// after.style.width = (100 - percent) + "%"; // keep for future if needed
+  after.style.width = (100 - percent) + "%";
   handle.style.left = percent + "%";
 }
 

@@ -24,7 +24,7 @@
             name: 'Fajar Setya',
             division: 'General Supports',
             photo: 'images/user.png',
-            introduction: 'Hi there 👋, How can I help you?',
+            introduction: 'Hi there 👋 \n How can I help you?',
         }, [
             {
                 data: 'name',
@@ -132,17 +132,29 @@ body {
 }
 
 .ba-handle::after {
-  content: "Slide ⇆";
+  content: "SLIDE ⇆";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  
   background: #fff;
-  padding: 10px;
-  border-radius: 50%;
-  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: 30px;
+
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
   box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  white-space: nowrap;
 }
+
 
 /* LABELS */
 .ba-label {
@@ -186,9 +198,19 @@ body {
   }
 
   .ba-handle::after {
-    content: "Slide ⇆";
-    padding: 8px;
-    font-size: 12px;
+    @media (max-width: 768px) {
+  .ba-handle::after {
+    content: "SLIDE\A⇆";
+    white-space: pre;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+    padding: 8px 10px;
+    line-height: 1.2;
   }
 }
 </style>
